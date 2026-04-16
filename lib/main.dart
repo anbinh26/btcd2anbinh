@@ -1,22 +1,40 @@
 import 'package:flutter/material.dart';
 
-import 'screens/diary_home_screen.dart';
-import 'theme/app_theme.dart';
+import 'controllers/settings_controller.dart';
+import 'views/settings_page.dart';
 
 void main() {
-  runApp(const DiaryApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const MyApp());
 }
 
-class DiaryApp extends StatelessWidget {
-  const DiaryApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final seed = const Color(0xFF6B4EE6);
+
     return MaterialApp(
-      title: 'Nhật ký',
+      title: 'Game đố vui',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.light(),
-      home: const DiaryHomeScreen(),
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: seed,
+          brightness: Brightness.light,
+        ),
+        appBarTheme: const AppBarTheme(centerTitle: true),
+        cardTheme: CardThemeData(
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+        ),
+      ),
+      home: SettingsPage(
+        controller: SettingsController(),
+      ),
     );
   }
 }
